@@ -9,11 +9,18 @@ canvas {
 
 
 #globe-container,
-#ui-container {
+#ui-container  {
   position: fixed;
 
   top: 0;
   left: 0;
   width: 100%; /* Ensure both containers fill the entire width of the viewport */
   height: 100%; /* Ensure both containers fill the entire height of the viewport */
+}
+
+
+#color-menu {
+  position: fixed;
+  top: 85px;
+  left: 40px;
 }

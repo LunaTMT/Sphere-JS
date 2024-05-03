@@ -1,43 +1,41 @@
 var sketch_UI = function(p) {
-
+ 
+    let colorPicker = document.getElementById('color-picker');
 
     p.setup = function() {
-        p.canvas = p.createCanvas(screenWidth * 0.20, screenHeight * 1);
+        p.canvas = p.createCanvas(screenWidth * 0.2, screenHeight * 1);
 
-        p.slider = p.createSlider(0, 40, total); // Create slider with default value
-        p.slider.position(10, 40); // Position the slider
+        let sliderWidth = 0.8 * p.canvas.width;
+       
+        p.connectionSlider = p.createSlider(0, 40, total);
+        p.connectionSlider.position(15, 40); 
+        p.connectionSlider.style('width', sliderWidth + 'px');
+        p.connectionSlider.input(p.connectionSliderEvent); 
 
-        // Add an event listener to the slider
-        p.slider.input(p.sliderEvent);
+ 
     }
 
     p.draw = function() {
         p.background(0); // Set background to black
-        // Display the current value of the slider
-        p.text("Slider Value: " + total, 10, 50);
+        p.fill(255); // Set text color to white
+        // Display the labels for the sliders
+        p.text("Connections :  " + total, 20, 35);
+        p.text("Line Colour :  " + colorPicker.value, 20, 75);
+
     }
 
-    // Event handler for slider change
-    p.sliderEvent = function() {
-        // Update the total value when the slider changes
-        total = p.slider.value();
-        console.log("Slider value changed to: ", total);
-        console.log("Total = ", total);
-
-        // Recalculate the globe when the slider changes
-        globe = new Array(total + 1).fill().map(() => []);
-        let r = screenWidth * 0.25;
-        for (let i = 0; i <= total; i++) {
-            const lat = p.map(i, 0, total, 0, p.PI);
-
-            for (let j = 0; j <= total; j++) {
-                const lon = p.map(j, 0, total, 0, p.TWO_PI);
-
-                const x = r * p.sin(lat) * p.cos(lon);
-                const y = r * p.sin(lat) * p.sin(lon);
-                const z = r * p.cos(lat);
-                globe[i][j] = p.createVector(x, y, z);
-            }
-        }
+    // Event handler for the first slider change
+    p.connectionSliderEvent = function() {
+        // Update the total value when the first slider changes
+        total = p.connectionSlider.value();
+        createGlobe(); // Call createGlobe() or any other function as needed
     }
+
+    // Event listener for the Apply button
+    document.getElementById('apply-colour').addEventListener('click', function() {
+        console.log(strokeWeightValue);
+        strokeWeightValue = colorPicker.value; 
+        console.log(strokeWeightValue);
+        createGlobe();
+      });
 }

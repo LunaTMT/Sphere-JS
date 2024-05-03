@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Menu</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <!-- HTML color menu -->
+  <div id="color-menu">
+    <input type="color" id="color-picker" value="#ff0000">
+    <button id="apply-color">Apply</button>
+  </div>
+  
+  <!-- p5.js canvas -->
+  <script>
+    let selectedColor = '#ff0000'; // Default selected color
+
+    function setup() {
+      createCanvas(400, 400);
+    }
+
+    function draw() {
+      background(220);
+      fill(selectedColor);
+      ellipse(width/2, height/2, 100, 100);
+    }
+
+    // Event listener for the Apply button
+    document.getElementById('apply-color').addEventListener('click', function() {
+      let colorPicker = document.getElementById('color-picker');
+      selectedColor = colorPicker.value; // Update selectedColor with the value of the color picker
+    });
+  </script>
+</body>
+</html>
