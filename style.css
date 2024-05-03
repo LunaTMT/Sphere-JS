@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+
+#globe-container,
+#ui-container {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure both containers fill the entire width of the viewport */
+  height: 100%; /* Ensure both containers fill the entire height of the viewport */
+}
