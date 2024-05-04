@@ -22,19 +22,5 @@ screenWidth  = window.innerWidth;
 screenHeight = window.innerHeight;
 
 
-function createGlobe() {
-    globe = new Array(total + 1).fill().map(() => []); 
-    r = screenWidth * 0.20;
-    for (let i = 0; i <= total; i++) {
-        const lat = map(i, 0, total, 0, PI);
 
-        for (let j = 0; j <= total; j++) {
-        const lon = map(j, 0, total, 0, TWO_PI);
 
-        const x = r * sin(lat) * cos(lon);
-        const y = r * sin(lat) * sin(lon);
-        const z = r * cos(lat);
-        globe[i][j] = createVector(x, y, z);
-        }
-    }
-}

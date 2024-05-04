@@ -1,46 +1,63 @@
 var sketch_main = function(p){
-  
-    preload = function() {
-        globeImg = loadImage('assets/images/high_res_earth.jpg');
-        font     = loadFont('assets/fonts/Queensides.ttf');
+    
+    p.preload = function() {
+        p.globeImg = p.loadImage('assets/images/high_res_earth.jpg');
+        p.font     = p.loadFont('assets/fonts/Queensides.ttf');
     }
   
-    setup = function() {
+    p.setup = function() {
         screenWidth  = window.innerWidth;
         screenHeight = window.innerHeight;
-        noFill();
-        canvas = createCanvas(screenWidth, screenHeight, WEBGL);
+        p.noFill();
+        p.canvas = p.createCanvas(screenWidth, screenHeight, p.WEBGL);
 
 
-        createGlobe();
+        p.createGlobe();
         
         window.addEventListener('resize', () => {
             screenWidth  = window.innerWidth;
             screenHeight = window.innerHeight;
-            resizeCanvas(screenWidth, screenHeight);
-            createGlobe();
+            p.resizeCanvas(screenWidth, screenHeight);
+            p.createGlobe();
         });
     
     }
   
-    draw = function() {
-        background(51);
-        orbitControl();
-        strokeWeight(strokeWeightValue);
-        stroke(strokeValue);
-        noFill();
+    p.draw = function() {
+        p.background(51);
+        p.orbitControl();
+        p.strokeWeight(strokeWeightValue);
+        p.stroke(strokeValue);
+        p.noFill();
+        
         
         for (let i = 0; i < total; i++) {
-            beginShape(TRIANGLE_STRIP);
+            p.beginShape(p.TRIANGLE_STRIP);
             for (let j = 0; j < total + 1; j++) {
-            const v1 = globe[i][j];
-            vertex(v1.x, v1.y, v1.z);
-            const v2 = globe[i + 1][j];
-            vertex(v2.x, v2.y, v2.z);
+                const v1 = globe[i][j];
+                p.vertex(v1.x, v1.y, v1.z);
+                const v2 = globe[i + 1][j];
+                p.vertex(v2.x, v2.y, v2.z);
             }
-            endShape();
+            p.endShape();
+        }
+    }
+
+
+    p.createGlobe = function() {
+        globe = new Array(total + 1).fill().map(() => []); 
+        r = screenWidth * 0.20;
+        for (let i = 0; i <= total; i++) {
+            const lat = p.map(i, 0, total, 0, p.PI);
+
+            for (let j = 0; j <= total; j++) {
+                const lon = p.map(j, 0, total, 0, p.TWO_PI);
+
+                const x = r * p.sin(lat) * p.cos(lon);
+                const y = r * p.sin(lat) * p.sin(lon);
+                const z = r * p.cos(lat);
+                globe[i][j] = p.createVector(x, y, z);
+            }
         }
     }
 }
-  
-  
