@@ -8,10 +8,10 @@ var sketch_main = function(p){
     p.setup = function() {
         screenWidth  = window.innerWidth;
         screenHeight = window.innerHeight;
-        p.noFill();
+        
         p.canvas = p.createCanvas(screenWidth, screenHeight, p.WEBGL);
 
-
+        p.noFill();
         p.createGlobe();
         
         window.addEventListener('resize', () => {
@@ -24,11 +24,18 @@ var sketch_main = function(p){
     }
   
     p.draw = function() {
-        p.background(51);
         p.orbitControl();
+
+        p.background(backgroundColour);
         p.strokeWeight(strokeWeightValue);
         p.stroke(strokeValue);
-        p.noFill();
+        
+        
+        if (sphereColour != (0, 0, 0)) {
+            p.fill(sphereColour); // Fill color white
+        } else {
+            p.noFill();
+        }
         
         
         for (let i = 0; i < total; i++) {
@@ -41,6 +48,8 @@ var sketch_main = function(p){
             }
             p.endShape();
         }
+
+     
     }
 
 
@@ -60,6 +69,8 @@ var sketch_main = function(p){
             }
         }
     }
+
+
 
     const settingsButton = document.getElementById('edit_button');
 
