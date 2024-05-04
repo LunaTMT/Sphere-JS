@@ -1,21 +1,70 @@
 var sketch_UI = function(p) {
-    p.setup = function() {
-        p.canvas = p.createCanvas(screenWidth * 0.2, screenHeight * 1);
+    let uiContainerWidth, uiContainerHeight;
+    let x, sliderY, colourPickerY
+    let activated = false;
 
-        p.connectionSlider = p.createSlider(0, 40, total);
-        p.connectionSlider.position(15, 40); 
-        p.connectionSlider.input(p.connectionSliderEvent); 
-        p.connectionSlider.addClass('slider');
+    p.preload = function(){
+
     }
 
+    p.setup = function() {
+        uiContainerWidth  = screenWidth * 0.3
+        uiContainerHeight = screenHeight;
+        
+        console.log(uiContainerHeight, uiContainerWidth)
+
+        p.canvas = p.createCanvas(uiContainerWidth, uiContainerHeight);
+        p.canvas.style('background-color', 'transparent');
+
+        x = uiContainerWidth * 0.1;
+        // Calculate positions for slider and color picker
+       
+        connectionSliderY       = uiContainerHeight * 0.05;
+        lineThicknessSliderY    = uiContainerHeight * 0.1;
+        colourPickerY           = uiContainerHeight * 0.15; 
+        
+
+        p.connectionSlider = p.createSlider(0, 40, total);
+        p.connectionSlider.position(x, connectionSliderY); 
+        p.connectionSlider.input(p.connectionSliderEvent); 
+        p.connectionSlider.addClass('slider');
+        p.connectionSlider.elt.id = 'connectionSlider'; 
+        
+        p.lineThicknessSlider = p.createSlider(0, 20, strokeWeightValue);
+        p.lineThicknessSlider.position(x, lineThicknessSliderY); 
+        p.lineThicknessSlider.input(p.changeLineThickness); 
+        p.lineThicknessSlider.addClass('slider');
+        p.lineThicknessSlider.elt.id = 'lineThicknessSlider'; 
+        
+        p.colourPicker = p.createColorPicker(100, 100, 100)
+        p.colourPicker.position(x, colourPickerY);
+        p.colourPicker.input(p.changeGlobeLineColour)
+        p.colourPicker.addClass('colourPicker')
+
+        
+        
+    }
     p.draw = function() {
         p.background(0); // Set background to black
+
         p.fill(255); // Set text color to white
-        p.text("Connections :  " + total, 20, 35);
+        p.text("Connections :  " + total, x, connectionSliderY - 10);
+        p.text("Line Colour :  " + getLineColourAdjustment(), x, colourPickerY - 10);
+        p.text("Line Thickness :  " + strokeWeightValue, x, lineThicknessSliderY - 10);
     }
 
     p.connectionSliderEvent = function() {
         total = p.connectionSlider.value();
+        p.createGlobe(); // Call createGlobe from global.js
+    }
+
+    p.changeGlobeLineColour = function() {
+        console.log("changed");
+        strokeValue = p.colourPicker.color();
+    }
+
+    p.changeLineThickness = function() {
+        strokeWeightValue = p.lineThicknessSlider.value();
         p.createGlobe(); // Call createGlobe from global.js
     }
 
@@ -43,4 +92,13 @@ var sketch_UI = function(p) {
         p.resizeCanvas(uiContainerWidth, p.height);
     }
     window.addEventListener('resize', adjustCanvasSize);
+
+    function getLineColourAdjustment(){
+        let color = p.colourPicker.color();
+    let r = Math.round(p.red(color));
+    let g = Math.round(p.green(color));
+    let b = Math.round(p.blue(color));
+
+    return "(" + r + ", " + g + ", " + b + ")";
+    }
 }

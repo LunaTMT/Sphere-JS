@@ -21,31 +21,36 @@ canvas {
 
 
 #ui-container {
-  background-color: aqua;
+  display: None;
   top: 0;
   left: 0;
   position: fixed;
-  width: 20%;
+  width: 30%;
   height: 100%; /* Ensure the container takes up the full height of the viewport */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-
-.slider {
-  position: absolute;
+/* Target elements with class 'slider' and 'colourPicker' inside #ui-container */
+#ui-container .slider,
+#ui-container .colourPicker {
   width: 80%;
 }
 
-#connectionSlider {
-  top: 5%;
+#edit_button {
+  position: absolute;
+  top: 10px; /* adjust as needed */
+  right: 10px; /* adjust as needed */
+  z-index: 1; /* ensure the button is above the globe */
+  border: none;
+
+  background-size: cover; /* Scale the background image to cover the entire button */
+  background-position: center; /* Center the background image */
+  background-color: rgba(0, 0, 0, 0);  /* Adjust the alpha value (0.5 for 50% transparency) */
 }
 
 
+#edit_button svg {
+  background-color: grey;
+  border-radius: 50px;
+  border-color: black;
 
-#color-menu {
-  position: fixed;
-  top: 85px;
-  left: 40px;
 }

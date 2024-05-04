@@ -15,12 +15,9 @@ stroke(r, g, b): Sets the stroke color using an RGB color,
 where r, g, and b are numbers between 0 and 255 representing t
 he red, green, and blue components of the color, respectively.
 */
-let strokeValue = 100;
+let strokeValue = 100; // it must be [0, 0, 0]
 let strokeWeightValue = 1;
 
 screenWidth  = window.innerWidth;
 screenHeight = window.innerHeight;
-
-
-
 
