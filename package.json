@@ -1,0 +1,25 @@
+{
+  "name": "sphere",
+  "version": "1.0.0",
+  "description": "sphere project",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "electron": "^25.0.0"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "author": "Taylor Threader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LunaTMT/Sphere-JS/tree/master"
+  }
+}

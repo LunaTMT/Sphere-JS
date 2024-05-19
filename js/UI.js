@@ -1,7 +1,8 @@
 var sketch_UI = function(p) {
     let uiContainerWidth, uiContainerHeight;
     let x, connectionSliderY, lineThicknessSliderY, lineColourPickerY, sphereColourPickerY, backgroundColourPickerY;
-
+    let textSizePercentage = 0.06; 
+    let textSizeValue = p.width * textSizePercentage;
 
     p.preload = function(){
 
@@ -9,21 +10,21 @@ var sketch_UI = function(p) {
 
     p.setup = function() {
         uiContainerWidth  = screenWidth * 0.3
-        uiContainerHeight = screenHeight;
+        uiContainerHeight = window.innerHeight;
         
         console.log(uiContainerHeight, uiContainerWidth)
 
         p.canvas = p.createCanvas(uiContainerWidth, uiContainerHeight);
         p.canvas.style('background-color', 'transparent');
 
-        x = uiContainerWidth * 0.1;
+        x = 20;
         // Calculate positions for slider and color picker
        
-        connectionSliderY       = uiContainerHeight * 0.05;
-        lineThicknessSliderY    = uiContainerHeight * 0.10;
-        lineColourPickerY       = uiContainerHeight * 0.15; 
-        sphereColourPickerY     = uiContainerHeight * 0.21; 
-        backgroundColourPickerY = uiContainerHeight * 0.27; 
+        connectionSliderY       = uiContainerHeight * 0.1;
+        lineThicknessSliderY    = uiContainerHeight * 0.2;
+        lineColourPickerY       = uiContainerHeight * 0.3; 
+        sphereColourPickerY     = uiContainerHeight * 0.4; 
+        backgroundColourPickerY = uiContainerHeight * 0.5; 
         
 
         p.connectionSlider = p.createSlider(0, 40, total);
@@ -62,6 +63,8 @@ var sketch_UI = function(p) {
     p.draw = function() {
         p.background(0); 
         p.fill(255); 
+        
+        p.textSize(textSizeValue);
 
         p.text("Connections :  "        + total, x, connectionSliderY - 10);
         p.text("Line Thickness :  "     + strokeWeightValue, x, lineThicknessSliderY - 10);
@@ -113,10 +116,21 @@ var sketch_UI = function(p) {
 
     // On window resizing we adjust canvas size to ensure proportional reshaping
     function adjustCanvasSize() {
-        let uiContainerWidth = document.getElementById('ui-container').offsetWidth;
-        p.resizeCanvas(uiContainerWidth, p.height);
+        uiContainerWidth  = window.innerWidth * 0.3;
+        textSizePercentage = 0.05; 
+        textSizeValue = p.width * textSizePercentage;
+        p.resizeCanvas(uiContainerWidth, uiContainerHeight);
     }
     window.addEventListener('resize', adjustCanvasSize);
+
+    const settingsButton = document.getElementById('edit_button');
+    settingsButton.addEventListener('click', adjustCanvasSize);
+
+
+    document.addEventListener('fullscreenchange', (event) => {
+        if (document.fullscreenElement) 
+            adjustCanvasSize();
+    });
 
     function getColourAdjustment(colourPicker){
         let colour = colourPicker.color();

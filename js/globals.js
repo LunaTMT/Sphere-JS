@@ -16,3 +16,33 @@ let sphereColour = 0;
 let screenWidth  = window.innerWidth;
 let screenHeight = window.innerHeight;
 
+
+
+
+
+function settings(){
+    const uiContainer    = document.getElementById('ui-container');
+    const globeContainer = document.getElementById('globe-container');
+
+
+
+    if (uiContainer.style.display === 'none' || uiContainer.style.display === '') {
+        uiContainer.style.display = 'block';
+
+        const canvas = document.querySelector('canvas');
+        const newWidth = window.innerWidth * 0.7;
+        canvas.style.width = newWidth + 'px';
+
+        globeContainer.style.left = (window.innerWidth * 0.3) + 'px';
+        globeContainer.style.right = '0px';
+    
+
+    } else {
+        uiContainer.style.display = 'none';
+
+        const canvas = document.querySelector('canvas');
+        canvas.style.width = window.innerWidth  + 'px';
+        globeContainer.style.left = '0';
+    }
+};
+

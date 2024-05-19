@@ -70,12 +70,28 @@ var sketch_main = function(p){
         }
     }
 
-
-
-    const settingsButton = document.getElementById('edit_button');
-
-    settingsButton.addEventListener('click', function(){
-   
-
+    window.addEventListener('resize', () => {
+        function settings(){
+            const uiContainer    = document.getElementById('ui-container');
+            const globeContainer = document.getElementById('globe-container');
+        
+            
+            if (uiContainer.style.display === 'none' || uiContainer.style.display === '') {
+                const canvas = document.querySelector('canvas');
+                canvas.style.width = window.innerWidth  + 'px';
+                globeContainer.style.right = '0';
+            
+        
+                } else {
+                const canvas = document.querySelector('canvas');
+                const newWidth = window.innerWidth * 0.7;
+                canvas.style.width = newWidth + 'px';
+        
+                globeContainer.style.right = (window.innerWidth * 0.3) + 'px';
+                }
+        };
+        
     });
+
+    
 }

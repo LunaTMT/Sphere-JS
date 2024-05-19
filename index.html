@@ -9,7 +9,6 @@
 <body>
   <div id="globe-container"></div>
 
-
   <button id="edit_button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
         <image xlink:href="assets/images/settings_icon.svg" width="48" height="48"/>
@@ -18,45 +17,23 @@
   <div id="ui-container"></div>
 
 
-  
-
 
   <script src="libraries/p5.min.js"></script>
   <script src="libraries/p5.sound.min.js"></script>
-  <script src="/js/globals.js"></script>
-  <script src="/js/globe.js"></script>
-  <script src="/js/UI.js"></script>
-  <script src="/js/sketch.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/UI.js"></script>
+  <script src="js/sketch.js"></script>
 
 
   <script>
     const settingsButton = document.getElementById('edit_button');
-    const uiContainer    = document.getElementById('ui-container');
-    const globeContainer = document.getElementById('globe-container');
-  
+    settingsButton.addEventListener('click', settings);
 
-    settingsButton.addEventListener('click', function(){
-      console.log("clicked");
-      if (uiContainer.style.display === 'none' || uiContainer.style.display === '') {
-        uiContainer.style.display = 'block';
-
-
-        const canvas = document.querySelector('canvas');
-        const newWidth = window.innerWidth * 0.7;
-        canvas.style.width = newWidth + 'px';
-
-        globeContainer.style.left = (window.innerWidth * 0.3) + 'px';
-      } else {
-        uiContainer.style.display = 'none';
-
-        const canvas = document.querySelector('canvas');
-        canvas.style.width = window.innerWidth  + 'px';
-        globeContainer.style.left = '0';
-      }
-    });
-
-
+    
 
   </script>
+  
+
 </body>
 </html>
